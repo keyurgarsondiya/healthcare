@@ -1,0 +1,1 @@
+import { linksFromRoutes } from './routes';
