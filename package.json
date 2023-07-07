@@ -24,7 +24,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint . --ext .ts,.tsx",
-    "verify": "npm run lint && npm run test --watchAll=false && npm run build",
+    "verify": "npm run lint && npm run test -- --watchAll=false && npm run build",
     "test:coverage": "npm run test -- --collectCoverage"
   },
   "eslintConfig": {
