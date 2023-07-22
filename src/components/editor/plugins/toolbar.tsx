@@ -39,7 +39,7 @@ export const Toolbar = () => {
 	}, [updateToolbar, editor]);
 
 	return (
-		<div className="fixed z-20 shadow bottom-2 left-1/2 transform -translate-x-1/2 min-w-52 h-10 px-2 py-2 bg-[#1b2733] mb-4 space-x-2 flex items-center">
+		<div className="fixed z-20 shadow bottom-2 left-1/2 transform -translate-x-1/2 min-w-52 h-10 px-2 py-2 bg-[#1b2733] space-x-2 flex items-center">
 			<button
 				className={clsx(
 					'px-1 hover:bg-gray-700 transition-colors duration-100 ease-in',

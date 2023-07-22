@@ -2,6 +2,7 @@ import clsx from 'clsx';
 
 export interface Theme {
 	app: {
+		padding: string;
 		primaryColor: string;
 		backgroundColor: string;
 		baseFontSize: number;
@@ -11,8 +12,9 @@ export interface Theme {
 function createThemeVariant(): Theme {
 	return {
 		app: {
+			padding: clsx('p-0'),
 			primaryColor: clsx('#4A55A2'),
-			backgroundColor: clsx('#C5DFF8'),
+			backgroundColor: clsx('bg-[#eeeeee]'),
 			baseFontSize: 14,
 		},
 	};

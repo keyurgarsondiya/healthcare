@@ -12,6 +12,14 @@ const Home = React.lazy(
 		)
 );
 
+const Reports = React.lazy(
+	() =>
+		import(
+			// tslint:disable-next-line:space-in-parens
+			/* webpackChunk: "home-page" */ '../../pages/reports'
+		)
+);
+
 const About = React.lazy(
 	() =>
 		import(
@@ -59,8 +67,9 @@ function componentSuspense(Component: any): React.ReactNode {
 function getPageComponent(): React.ReactElement {
 	return (
 		<Routes>
-			<Route path="/" element={<Navigate to={Pages.Home} replace />} />
-			<Route path={Pages.Home} element={componentSuspense(Home)} />
+			<Route path="/" element={<Navigate to={Pages.Dashboard} replace />} />
+			<Route path={Pages.Dashboard} element={componentSuspense(Home)} />
+			<Route path={Pages.Reports} element={componentSuspense(Reports)} />
 			<Route path={Pages.About} element={componentSuspense(About)} />
 			<Route path={Pages.Services} element={componentSuspense(Services)} />
 			<Route path={Pages.Pricing} element={componentSuspense(Pricing)} />

@@ -13,30 +13,15 @@ export type RouteDefinitions = {
 };
 
 const routes: RouteDefinitions = {
-	[Pages.Home]: {
-		label: 'Home',
-		key: 'home',
-		path: hashRoute(Pages.Home),
+	[Pages.Dashboard]: {
+		label: 'Dashboard',
+		key: 'dashboard',
+		path: hashRoute(Pages.Dashboard),
 	},
-	[Pages.About]: {
-		label: 'About',
-		key: 'about',
-		path: hashRoute(Pages.About),
-	},
-	[Pages.Services]: {
-		label: 'Services',
-		key: 'services',
-		path: hashRoute(Pages.Services),
-	},
-	[Pages.Pricing]: {
-		label: 'Pricing',
-		key: 'pricing',
-		path: hashRoute(Pages.Pricing),
-	},
-	[Pages.Contact]: {
-		label: 'Contact',
-		key: 'contact',
-		path: hashRoute(Pages.Contact),
+	[Pages.Reports]: {
+		label: 'Reports',
+		key: 'reports',
+		path: hashRoute(Pages.Reports),
 	},
 };
 

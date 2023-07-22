@@ -2,15 +2,18 @@ import React from 'react';
 import { HashRouter } from 'react-router-dom';
 
 import { Main } from './components';
+import { ThemeProvider } from './theme';
+
+import './app.css';
 
 function AppContainer(): React.ReactElement {
 	return (
 		// TODO: Setup Theme Provider
-		// <ThemeProvider theme={theme}>
-		<HashRouter>
-			<Main />
-		</HashRouter>
-		// </ThemeProvider>
+		<ThemeProvider>
+			<HashRouter>
+				<Main />
+			</HashRouter>
+		</ThemeProvider>
 	);
 }
 

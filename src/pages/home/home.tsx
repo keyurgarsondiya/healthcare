@@ -37,8 +37,7 @@ const Home = (): React.ReactElement => {
 				'px-[80px]',
 				'w-full',
 				'h-full',
-				'justify-center',
-				'overscroll-contain'
+				'justify-center'
 			)}
 		>
 			<div className={clsx('h-[545px]', 'relative', 'pt-7')}>
