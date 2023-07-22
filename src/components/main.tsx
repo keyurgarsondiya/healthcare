@@ -8,7 +8,7 @@ import { IntlProvider } from '../store';
 
 export const Main = (): React.ReactElement => (
 	<IntlProvider>
-		<div className={clsx('flex', 'flex-col', 'h-screen', 'w-full')}>
+		<div className={clsx('flex', 'flex-col', 'h-full', 'w-full')}>
 			<Header />
 			<Router />
 		</div>
