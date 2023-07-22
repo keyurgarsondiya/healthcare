@@ -1,5 +1,6 @@
 export enum Pages {
-	Home = '/home',
+	Dashboard = '/dashboard',
+	Reports = '/reports',
 	About = '/about',
 	Services = '/services',
 	Pricing = '/pricing',
