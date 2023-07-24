@@ -18,12 +18,13 @@ import {
 	AutoLinkPlugin,
 	EditLinkPlugin,
 	FloatingMenuPlugin,
+	HeaderPlugin,
 	LocalStoragePlugin,
 	OpenLinkPlugin,
-	ToolbarPlugin,
+	// ToolbarPlugin,
 } from './plugins';
 import { isValidUrl } from './plugins/utils';
-const theme = {};
+import { theme } from './theme';
 const EDITOR_NAMESPACE = 'lexical-editor';
 const onError = (error: any): void => {
 	console.error(error);
@@ -44,25 +45,19 @@ export const Editor = (): React.ReactElement => {
 		namespace: EDITOR_NAMESPACE,
 		editorState: content,
 		nodes: EDITOR_NODES,
-		theme: {
-			root: 'p-4 border-slate-500 border-2 rounded h-full min-h-[200px] focus:outline-none focus-visible:border-black',
-			link: 'cursor-pointer',
-			text: {
-				bold: 'font-semibold',
-				underline: 'underline',
-				italic: 'italic',
-				strikethrough: 'line-through',
-				underlineStrikethrough: 'underlined-line-through',
-			},
-		},
+		theme,
 		onError,
 	};
 
 	return (
 		<LexicalComposer initialConfig={initialConfig}>
+			{/*<ToolbarPlugin />*/}
+			<HeaderPlugin />
 			<RichTextPlugin
 				contentEditable={<ContentEditable className={'content-editable'} />}
-				placeholder={<div className={'placeholder'}>Enter some text...</div>}
+				placeholder={
+					<div className={'editor-placeholder'}>Enter some text...</div>
+				}
 				ErrorBoundary={LexicalErrorBoundary}
 			/>
 			<HistoryPlugin />
@@ -70,7 +65,6 @@ export const Editor = (): React.ReactElement => {
 			<ListPlugin />
 			<LinkPlugin validateUrl={isValidUrl} />
 			{/*	Custom Plugins */}
-			<ToolbarPlugin />
 			<AutoLinkPlugin />
 			<EditLinkPlugin />
 			<FloatingMenuPlugin />

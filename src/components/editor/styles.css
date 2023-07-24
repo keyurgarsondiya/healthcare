@@ -1,15 +1,14 @@
 .content-editable {
-    height: 100%;
-    width: 100%;
-    padding: 16px 8px;
-    border: 1px solid #000;
-    border-radius: 5px;
-    overflow-y: scroll;
-    position: relative;
+	height: 100%;
+	width: 100%;
+	padding: 16px 8px;
+	background-color: #ffffff;
+	overflow-y: scroll;
+	position: relative;
 }
 
-.placeholder {
+.editor-placeholder {
     position: absolute;
-    top: 16px;
-    padding-left: 8px;
+    top: 58px;
+    padding-left: 10px;
 }
