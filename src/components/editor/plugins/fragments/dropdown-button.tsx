@@ -27,15 +27,15 @@ export const DropdownButton = ({
 	const [selected, setSelected] = useState<DropdownOption>(options[0]);
 	const [open, setOpen] = useState(false);
 	return (
-		<div className="relative inline-block text-left">
+		<div className="relative inline-block text-left flex-auto">
 			<div
 				onClick={(): void => setOpen(!open)}
 				className={clsx(
-					borderRight && 'border-r-[1px]',
-					borderLeft && 'border-l-[1px]',
-					'group inline-flex justify-center gap-x-1.5 mr-[-1px] bg-white px-1 py-2 text-sm font-semibold text-gray-900 hover:bg-gray-200'
+					// borderRight && 'border-r-[1px]',
+					// borderLeft && 'border-l-[1px]',
+					'w-full group inline-flex rounded justify-center gap-x-1.5 mr-[-1px] bg-white px-1 py-2 text-sm font-semibold text-gray-900 hover:bg-gray-200'
 				)}
-				style={{ width: `${dropdownLabelWidth}px` }}
+				// style={{ width: `${dropdownLabelWidth}px` }}
 			>
 				{hasBeforeIcon && <i className={clsx(beforeIcon, 'mt-[2px]')}></i>}
 				{labelIcon ? (
