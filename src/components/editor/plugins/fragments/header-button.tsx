@@ -31,7 +31,7 @@ export const HeaderButton = ({
 		<div className={clsx('flex flex-none flex-row h-full items-center')}>
 			<button
 				className={clsx(
-					'px-4 py-1 t-[4px] hover:rounded hover:bg-gray-200 transition-colors duration-100 ease-in',
+					'px-3 py-1 t-[4px] hover:rounded hover:bg-gray-200 transition-colors duration-100 ease-in',
 					isClicked ? 'bg-gray-200 rounded' : 'bg-white',
 					disabled && 'cursor-not-allowed'
 				)}

@@ -1,3 +1,5 @@
+import { $isLinkNode } from '@lexical/link';
+import { ClearEditorPlugin } from '@lexical/react/LexicalClearEditorPlugin';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { mergeRegister } from '@lexical/utils';
 import {
@@ -5,14 +7,17 @@ import {
 	$getSelection,
 	$isParagraphNode,
 	$isRangeSelection,
+	CLEAR_EDITOR_COMMAND,
 	FORMAT_TEXT_COMMAND,
 	LexicalCommand,
 	REDO_COMMAND,
 	TextFormatType,
 	UNDO_COMMAND,
 } from 'lexical';
-import React, { useCallback, useEffect, useState } from 'react';
+import { noop } from 'lodash';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
+import { TOGGLE_EDIT_LINK_MENU } from './edit-link';
 import { DropdownButton, HeaderButton } from './fragments';
 import {
 	ALIGN_OPTIONS,
@@ -41,6 +46,10 @@ export const Header = (): React.ReactElement => {
 	const [hasUndo, setHasUndo] = useState(undoStack?.length !== 0);
 	const [hasRedo, setHasRedo] = useState(redoStack?.length !== 0);
 
+	const MandatoryPlugins = useMemo(() => {
+		return <ClearEditorPlugin />;
+	}, []);
+
 	const updateToolbar = useCallback((): void => {
 		const root = $getRoot();
 		const children = root.getChildren();
@@ -58,9 +67,12 @@ export const Header = (): React.ReactElement => {
 		}
 
 		if ($isRangeSelection(selection)) {
+			const nodes = selection.getNodes();
 			setIsBold(selection.hasFormat('bold'));
 			setIsItalic(selection.hasFormat('italic'));
 			setIsUnderline(selection.hasFormat('underline'));
+			setIsCode(selection.hasFormat('code'));
+			setIsLink(nodes.every((node) => $isLinkNode(node.getParent())));
 		}
 	}, [editor]);
 
@@ -95,12 +107,13 @@ export const Header = (): React.ReactElement => {
 			}
 			id={'editor-header'}
 		>
+			{MandatoryPlugins}
 			<HeaderButton
 				iconName={'fi fi-rr-rotate-left'}
 				iconSize={'text-base'}
 				commandType={UNDO_COMMAND}
 				handleClick={handleButtonClick}
-				setIsClicked={setHasUndo}
+				setIsClicked={noop}
 				disabled={!hasUndo}
 			/>
 			<HeaderButton
@@ -108,8 +121,16 @@ export const Header = (): React.ReactElement => {
 				iconSize={'text-base'}
 				commandType={REDO_COMMAND}
 				handleClick={handleButtonClick}
-				setIsClicked={setHasRedo}
+				setIsClicked={noop}
 				disabled={!hasRedo}
+			/>
+			<HeaderButton
+				iconName={'fi fi-br-trash'}
+				iconSize={'text-base'}
+				commandType={CLEAR_EDITOR_COMMAND}
+				handleClick={handleButtonClick}
+				setIsClicked={noop}
+				disabled={isEditorEmpty}
 			/>
 			<DropdownButton
 				hasBeforeIcon={true}
@@ -170,7 +191,7 @@ export const Header = (): React.ReactElement => {
 			<HeaderButton
 				iconName={'fi fi-br-link-horizontal'}
 				iconSize={'text-base'}
-				commandType={FORMAT_TEXT_COMMAND}
+				commandType={TOGGLE_EDIT_LINK_MENU}
 				isClicked={isLink}
 				setIsClicked={setIsLink}
 				handleClick={handleButtonClick}
