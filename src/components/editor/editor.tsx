@@ -25,6 +25,8 @@ import {
 } from './plugins';
 import { isValidUrl } from './plugins/utils';
 import { theme } from './theme';
+
+import { useEditorHistory } from '../../store';
 const EDITOR_NAMESPACE = 'lexical-editor';
 const onError = (error: any): void => {
 	console.error(error);
@@ -41,6 +43,9 @@ const EDITOR_NODES = [
 ];
 export const Editor = (): React.ReactElement => {
 	const content = localStorage.getItem(EDITOR_NAMESPACE);
+	const {
+		state: { historyState },
+	} = useEditorHistory();
 	const initialConfig = {
 		namespace: EDITOR_NAMESPACE,
 		editorState: content,
@@ -60,7 +65,7 @@ export const Editor = (): React.ReactElement => {
 				}
 				ErrorBoundary={LexicalErrorBoundary}
 			/>
-			<HistoryPlugin />
+			<HistoryPlugin externalHistoryState={historyState} />
 			<MarkdownShortcutPlugin transformers={TRANSFORMERS} />
 			<ListPlugin />
 			<LinkPlugin validateUrl={isValidUrl} />
