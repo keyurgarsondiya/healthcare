@@ -5,3 +5,4 @@ export { Router } from './router';
 export { Nav } from './nav';
 export { Editor } from './editor';
 export { IconButton } from './icon-button';
+export { ProtectedRoute } from './protected-route';
