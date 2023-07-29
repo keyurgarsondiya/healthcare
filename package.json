@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@auth0/auth0-react": "^2.2.0",
     "@floating-ui/dom": "^1.4.5",
     "@lexical/code": "^0.11.2",
     "@lexical/link": "^0.11.2",
@@ -22,7 +23,7 @@
     "lexical": "^0.11.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.14.1",
+    "react-router-dom": "5.3.4",
     "react-scripts": "5.0.1",
     "reactflow": "^11.7.4",
     "typescript": "^4.9.5",
