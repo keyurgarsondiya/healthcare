@@ -69,7 +69,7 @@ function componentSuspense(Component: any) {
 function getPageComponent(): React.ReactElement {
 	return (
 		<Switch>
-			<Route exact path="/">
+			<Route exact path={'/'}>
 				<Redirect from={'/'} to={Pages.Dashboard} />
 			</Route>
 			<ProtectedRoute

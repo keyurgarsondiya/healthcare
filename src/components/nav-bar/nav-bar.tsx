@@ -47,25 +47,14 @@ export const NavBar = ({ options }: NavBarProps): React.ReactElement => {
 					</div>
 				</div>
 				<div>
-					{isAuthenticated ? (
-						<button
-							className={clsx(
-								'font-medium px-4 py-2 border border-gray-900 bg-gray-900 text-white border-radius rounded'
-							)}
-							onClick={(): Promise<void> => logout()}
-						>
-							{'Logout'}
-						</button>
-					) : (
-						<button
-							className={clsx(
-								'font-medium px-4 py-2 border border-gray-900 bg-gray-900 text-white border-radius rounded'
-							)}
-							onClick={(): Promise<void> => loginWithRedirect()}
-						>
-							{'Login'}
-						</button>
-					)}
+					<button
+						className={clsx(
+							'font-medium px-4 py-2 border border-gray-900 bg-gray-900 text-white border-radius rounded'
+						)}
+						onClick={(): Promise<void> => logout()}
+					>
+						{'Logout'}
+					</button>
 				</div>
 			</div>
 		</nav>

@@ -1,5 +1,5 @@
-import { useAuth0, withAuthenticationRequired } from '@auth0/auth0-react';
-import React, { useEffect } from 'react';
+import { withAuthenticationRequired } from '@auth0/auth0-react';
+import React from 'react';
 import { Route } from 'react-router-dom';
 
 import { LoadingSpinner } from '../loading-spinner';
@@ -17,7 +17,6 @@ export const ProtectedRoute = ({
 			path={path}
 			component={withAuthenticationRequired(component, {
 				onRedirecting: () => <LoadingSpinner />,
-				returnTo: path,
 			})}
 		/>
 	);
