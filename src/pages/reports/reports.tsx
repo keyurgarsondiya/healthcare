@@ -10,8 +10,7 @@ import ReactFlow, {
 	useNodesState,
 } from 'reactflow';
 
-import { CustomNode } from './fragments';
-
+import { CustomNode, SidePanel } from './fragments';
 import 'reactflow/dist/style.css';
 const initialNodes: Array<Node> = [
 	{
@@ -48,9 +47,9 @@ const Reports = (): React.ReactElement => {
 	);
 
 	return (
-		<div className={clsx('w-full h-full bg-inherit p-4')}>
+		<div className={clsx('w-full h-full bg-inherit py-[20px] px-[40px]')}>
 			<div className={clsx('flex flex-row')}>
-				<div className={clsx('w-4/5')}>
+				<div className={clsx('w-4/6')}>
 					<div className={'flex flex-row justify-end pb-[16px]'}>
 						<button
 							className={clsx(
@@ -60,7 +59,7 @@ const Reports = (): React.ReactElement => {
 							{'Open Note Editor'}
 						</button>
 					</div>
-					<div className={clsx('h-[533px] bg-white')}>
+					<div className={clsx('h-[515px] bg-white')}>
 						<ReactFlow
 							nodes={nodes}
 							edges={edges}
@@ -74,7 +73,9 @@ const Reports = (): React.ReactElement => {
 						</ReactFlow>
 					</div>
 				</div>
-				<div className={clsx('w-1/5 pl-[20px]')}>{'Side Panel'}</div>
+				<div className={clsx('w-2/6 pl-[20px]')}>
+					<SidePanel />
+				</div>
 			</div>
 		</div>
 	);

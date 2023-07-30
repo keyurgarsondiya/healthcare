@@ -66,7 +66,7 @@ export const SidePanel = (): React.ReactElement => {
 					</div>
 					<div>
 						<input
-							className={'w-full p-[8px]  rounded border-[1px] border-gray-300'}
+							className={'w-full p-[8px] rounded border-[1px] border-gray-300'}
 							placeholder={'Enter chat query'}
 						/>
 					</div>
