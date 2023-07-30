@@ -17,7 +17,15 @@ const Reports = React.lazy(
 	() =>
 		import(
 			// tslint:disable-next-line:space-in-parens
-			/* webpackChunk: "home-page" */ '../../pages/reports'
+			/* webpackChunk: "reports" */ '../../pages/reports'
+		)
+);
+
+const PatientList = React.lazy(
+	() =>
+		import(
+			// tslint:disable-next-line:space-in-parens
+			/* webpackChunk: "patient-list" */ '../../pages/patient-list'
 		)
 );
 
@@ -79,6 +87,10 @@ function getPageComponent(): React.ReactElement {
 			<ProtectedRoute
 				path={Pages.Reports}
 				component={componentSuspense(Reports)}
+			/>
+			<ProtectedRoute
+				path={Pages.PatientList}
+				component={componentSuspense(PatientList)}
 			/>
 			{/*<Route element={<ProtectedRoute />}>*/}
 			{/*	<Route path={Pages.Dashboard} element={componentSuspense(Home)} />*/}

@@ -23,6 +23,11 @@ const routes: RouteDefinitions = {
 		key: 'reports',
 		path: hashRoute(Pages.Reports),
 	},
+	[Pages.PatientList]: {
+		label: 'Patient List',
+		key: 'patient-list',
+		path: hashRoute(Pages.PatientList),
+	},
 };
 
 export const linksFromRoutes = (routes: RouteDefinitions): Array<Link> =>

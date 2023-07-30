@@ -17,7 +17,7 @@ export const NavLink = ({
 	active,
 }: NavBarOption): React.ReactElement => {
 	return (
-		<li className={clsx('flex-1 mr-2')}>
+		<li className={clsx('items-center mr-2')}>
 			<a
 				key={key}
 				href={path}
