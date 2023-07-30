@@ -6,3 +6,4 @@ export { Nav } from './nav';
 export { Editor } from './editor';
 export { IconButton } from './icon-button';
 export { ProtectedRoute } from './protected-route';
+export { Dropdown } from './dropdown';

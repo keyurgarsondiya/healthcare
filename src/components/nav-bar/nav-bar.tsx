@@ -9,10 +9,10 @@ interface NavBarProps {
 	options: Array<NavBarOption>;
 }
 export const NavBar = ({ options }: NavBarProps): React.ReactElement => {
-	const { logout, loginWithRedirect, isAuthenticated } = useAuth0();
+	const { logout } = useAuth0();
 	return (
 		<nav className=" border-gray-200 dark:bg-gray-900">
-			<div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+			<div className="flex flex-wrap items-center justify-between px-[40px] py-[20px]">
 				<div className={'flex flex-row'}>
 					<a href="#" className="flex items-center pr-[20px]">
 						<span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
