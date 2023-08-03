@@ -3,7 +3,7 @@ import React from 'react';
 
 import { SidePanel } from './fragments';
 
-import { Editor } from '../../components';
+import { Editor, LexicalPlayground } from '../../components';
 import { EditorHistoryProvider } from '../../store';
 
 const Home = (): React.ReactElement => {
@@ -42,8 +42,9 @@ const Home = (): React.ReactElement => {
 								</button>
 							</div>
 						</div>
-						<div className={clsx('h-4/6', 'relative')}>
-							<Editor />
+						<div className={clsx('h-[329px]', 'relative')}>
+							<LexicalPlayground />
+							{/*<Editor />*/}
 						</div>
 					</div>
 					<div className={clsx('w-2/6 h-full pl-[20px]')}>
