@@ -1,49 +1,118 @@
 {
-  "name": "healthcare",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@auth0/auth0-react": "^2.2.0",
-    "@floating-ui/dom": "^1.4.5",
-    "@lexical/code": "^0.11.2",
-    "@lexical/link": "^0.11.2",
-    "@lexical/list": "^0.11.2",
-    "@lexical/markdown": "^0.11.2",
-    "@lexical/react": "^0.11.2",
-    "@lexical/utils": "^0.11.3",
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.38",
-    "@types/react": "^18.2.14",
-    "@types/react-dom": "^18.2.6",
-    "@types/react-router-dom": "^5.3.3",
-    "classnames": "^2.3.2",
-    "lexical": "^0.11.2",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "5.3.4",
-    "react-scripts": "5.0.1",
-    "reactflow": "^11.7.4",
-    "typescript": "^4.9.5",
-    "verbum": "^0.5.0",
-    "web-vitals": "^2.1.4"
+  "version": "0.6.0",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(css|scss)$": "<rootDir>/test/mocks/styleMock.js"
+    }
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build && rm -rf dist && mv build dist",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint . --ext .ts,.tsx",
-    "verify": "npm run lint && npm run test -- --watchAll=false && npm run build",
-    "test:coverage": "npm run test -- --collectCoverage"
+    "lint": "tsdx lint",
+    "format": "prettier --write 'src/**/*.{ts,tsx,scss,css,json}'"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
+  "peerDependencies": {
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm run verify"
+    }
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "name": "verbum",
+  "author": "Ozan Yurtsever",
+  "module": "dist/verbum.esm.js",
+  "size-limit": [
+    {
+      "path": "dist/verbum.cjs.production.min.js",
+      "limit": "10 KB"
+    },
+    {
+      "path": "dist/verbum.esm.js",
+      "limit": "10 KB"
+    }
+  ],
+  "devDependencies": {
+    "@babel/core": "^7.18.0",
+    "@rollup/plugin-image": "^2.1.1",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.3.0",
+    "@types/intl": "^1.2.0",
+    "@types/react": "^18.0.9",
+    "@types/react-dom": "^18.0.4",
+    "@types/resize-observer-browser": "^0.1.7",
+    "autoprefixer": "^10.4.7",
+    "babel-loader": "^8.2.5",
+    "cssnano": "^5.1.9",
+    "eslint-plugin-prettier": "^4.2.1",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.2.3",
+    "postcss": "^8.4.14",
+    "postcss-url": "^10.1.3",
+    "prettier": "^2.6.2",
+    "react-is": "^18.1.0",
+    "rollup-plugin-postcss": "^4.0.2",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.4.0",
+    "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "@lexical/clipboard": "0.11.0",
+    "@lexical/code": "0.11.0",
+    "@lexical/file": "0.11.0",
+    "@lexical/hashtag": "0.11.0",
+    "@lexical/link": "0.11.0",
+    "@lexical/list": "0.11.0",
+    "@lexical/mark": "0.11.0",
+    "@lexical/overflow": "0.11.0",
+    "@lexical/plain-text": "0.11.0",
+    "@lexical/react": "0.11.0",
+    "@lexical/rich-text": "0.11.0",
+    "@lexical/selection": "0.11.0",
+    "@lexical/table": "0.11.0",
+    "@lexical/utils": "0.11.0",
+    "i18next": "^22.0.3",
+    "i18next-browser-languagedetector": "^7.0.0",
+    "lexical": "0.11.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "5.3.4",
+    "react-scripts": "5.0.1",
+    "react-i18next": "^12.0.0",
+    "use-child": "^1.0.0",
+    "utility-types": "^3.10.0",
+    "y-websocket": ">=1.3.x",
+    "yjs": ">=13.5.22"
+  },
+  "lint-staged": {
+    "src/**/*.{ts, tsx, json}": [
+      "prettier --write",
+      "npm run lint -- --fix"
     ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ozanyurtsever/verbum"
   },
   "browserslist": {
     "production": [
@@ -55,42 +124,6 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
-    ]
-  },
-  "devDependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "@types/lodash": "^4.14.195",
-    "clsx": "^1.2.1",
-    "eslint": "^8.44.0",
-    "eslint-config-prettier": "^8.8.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "husky": "4.3.8",
-    "lint-staged": "^13.2.3",
-    "lodash": "^4.17.21",
-    "postcss": "^8.4.25",
-    "prettier": "^3.0.0",
-    "tailwindcss": "^3.3.2",
-    "ts-jest": "^29.1.1",
-    "ts-node": "^10.9.1",
-    "ts-node-dev": "^2.0.0"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "pre-push": "npm run verify"
-    }
-  },
-  "lint-staged": {
-    "src/**/*.{ts, tsx, json}": [
-      "prettier --write",
-      "npm run lint -- --fix"
-    ]
-  },
-  "jest": {
-    "transformIgnorePatterns": [],
-    "collectCoverageFrom": [
-      "**/*.{ts, tsx}",
-      "!**/node_modules/**"
     ]
   }
 }

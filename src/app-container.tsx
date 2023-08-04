@@ -1,28 +1,65 @@
-import { Auth0Provider } from '@auth0/auth0-react';
 import React from 'react';
-import { HashRouter } from 'react-router-dom';
+import { EditorComposer, Editor, Divider } from '../src/components/playground';
+import ToolbarPlugin from '../src/components/playground/plugins/ToolbarPlugin/ToolbarPlugin';
 
-import { Main } from './components';
-import { ThemeProvider } from './theme';
+import {
+  AlignDropdown,
+  BackgroundColorPicker,
+  BlockFormatDropdown,
+  BoldButton,
+  CodeFormatButton,
+  CodeLanguageDropdown,
+  FloatingLinkEditor,
+  FontFamilyDropdown,
+  FontSizeDropdown,
+  InsertDropdown,
+  InsertLinkButton,
+  ItalicButton,
+  RedoButton,
+  TextColorPicker,
+  TextFormatDropdown,
+  UnderlineButton,
+  UndoButton,
+} from '../src/components/playground/plugins/ToolbarPlugin/components';
+import { $createParagraphNode, $createTextNode, $getRoot } from 'lexical';
+
+const initialState = () => {
+  const paragraph = $createParagraphNode();
+  const text = $createTextNode('Hello World!');
+  paragraph.append(text);
+  const root = $getRoot();
+  root.append(paragraph);
+  root.selectEnd();
+};
 
 import './app.css';
+
 function AppContainer(): React.ReactElement {
-	return (
-		// TODO: Setup Theme Provider
-		<Auth0Provider
-			domain="dev-rlsb3y8ah3nj553c.us.auth0.com"
-			clientId="XFH8c6fkfOG1oOmGgq0FS0SN5Ir53cyd"
-			authorizationParams={{
-				redirect_uri: window.location.origin,
-			}}
-		>
-			<ThemeProvider>
-				<HashRouter>
-					<Main />
-				</HashRouter>
-			</ThemeProvider>
-		</Auth0Provider>
-	);
+  return (
+    <div className={'app-container'}>
+      <EditorComposer initialEditorState={initialState}>
+        <Editor>
+          <ToolbarPlugin>
+            <FontFamilyDropdown />
+            <FontSizeDropdown />
+            <Divider />
+            <BoldButton />
+            <ItalicButton />
+            <UnderlineButton />
+            <CodeFormatButton />
+            <InsertLinkButton />
+            <TextColorPicker />
+            <BackgroundColorPicker />
+            <TextFormatDropdown />
+            <Divider />
+            <InsertDropdown />
+            <Divider />
+            <AlignDropdown />
+          </ToolbarPlugin>
+        </Editor>
+      </EditorComposer>
+    </div>
+  );
 }
 
 export default AppContainer;
