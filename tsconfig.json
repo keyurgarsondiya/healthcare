@@ -2,8 +2,8 @@
   // see https://www.typescriptlang.org/tsconfig to better understand tsconfigs
   "include": ["src", "types"],
   "compilerOptions": {
-    "target": "ES2019",
-    "lib": ["esnext", "dom", "dom.iterable"],
+    "target": "es6",
+    "lib": ["dom", "dom.iterable", "esnext"],
     "importHelpers": true,
     "declaration": true,
     "sourceMap": true,
@@ -19,7 +19,8 @@
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "moduleResolution": "node",
-    "jsx": "react",
+    "jsx": "react-jsx",
+    "module": "esnext",
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
