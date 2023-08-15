@@ -17,6 +17,7 @@ import {
   UnderlineButton,
 } from '../playground';
 import ToolbarPlugin from '../playground/plugins/ToolbarPlugin/ToolbarPlugin';
+import ComponentPickerPlugin from '../playground/plugins/ComponentPickerPlugin';
 import { $createParagraphNode, $createTextNode, $getRoot } from 'lexical';
 
 const initialState = () => {
@@ -50,6 +51,7 @@ export const PlaygroundEditor = (): React.ReactElement => {
             <Divider />
             <AlignDropdown />
           </ToolbarPlugin>
+          <ComponentPickerPlugin />
         </Editor>
       </EditorComposer>
     </div>
