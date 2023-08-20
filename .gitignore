@@ -24,3 +24,7 @@ dist
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+code_processor.ipynb
+compiled_lexical.txt
+compiled.txt
+package-lock.json

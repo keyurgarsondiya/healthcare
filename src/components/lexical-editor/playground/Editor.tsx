@@ -36,9 +36,21 @@ import Placeholder from './ui/Placeholder';
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import EditorContext from './context/EditorContext';
-import { LexicalEditor } from 'lexical';
+import { $getNodeByKey, $isRangeSelection, $isTextNode, LexicalEditor } from 'lexical';
 import { useTranslation } from 'react-i18next';
 import DragDropPaste from './plugins/DragDropPastePlugin';
+import DraggableBlockPlugin from './plugins/DraggableBlockPlugin'; 
+
+import {$getSelection, SELECTION_CHANGE_COMMAND, $createNodeSelection, $isParagraphNode, $isElementNode, ParagraphNode } from 'lexical';
+import { REPLACE_TEXT_WITH_API_CALL_COMMAND } from './commands/custom-commands';  
+import {$generateHtmlFromNodes} from '@lexical/html';
+import type { LexicalNode } from 'lexical';
+import invariant from './shared/src/invariant';
+import {
+  $findMatchingParent
+} from '@lexical/utils';
+
+
 
 interface IEditorProps {
   children?: ReactNode;
@@ -76,19 +88,108 @@ const Editor = ({
   const placeholderComponent = <Placeholder>{placeholder}</Placeholder>;
 
   const { i18n } = useTranslation();
+  const [floatingAnchorElem, setFloatingAnchorElem] =
+    useState<HTMLDivElement | null>(null);
+  const [isSmallWidthViewport, setIsSmallWidthViewport] =
+    useState<boolean>(false);
+  
+    const onRef = (_floatingAnchorElem: HTMLDivElement) => {
+      if (_floatingAnchorElem !== null) {
+        setFloatingAnchorElem(_floatingAnchorElem);
+      }
+    };
+
+    function getChildrenRecursively(node: LexicalNode): Array<LexicalNode> {
+      const nodes = [];
+      const stack = [node];
+      while (stack.length > 0) {
+        const currentNode = stack.pop();
+        invariant(
+          currentNode !== undefined,
+          "Stack.length > 0; can't be undefined",
+        );
+        if ($isElementNode(currentNode)) {
+          stack.unshift(...currentNode.getChildren());
+        }
+        if (currentNode !== node) {
+          nodes.push(currentNode);
+        }
+      }
+      return nodes;
+    }
+
+
 
   useEffect(() => {
+    // Update editor with current selection  
+  // editor.update(() => {  
+  //   const selection = $getSelection();  
+  // });  
+  
+  // // Read editor state and get current selection  
+  // if (editorStateRef.current) {  
+  //   editorStateRef.current.read(() => {  
+  //     const selection = $getSelection();  
+  //   });  
+  // }  
+  
+  // Register SELECTION_CHANGE_COMMAND to update selection when it changes. This placeholder implementation prints it to console.
+  editor.registerCommand(SELECTION_CHANGE_COMMAND, () => {  
+    const selection = $getSelection();  
+    // console.log('Current selection:', selection.getTextContent());
+    return true; // Return true to indicate the command executed successfully  
+  }, 0);  
     editor.setEditable(isEditable);
 
     if (locale) i18n.changeLanguage(locale);
   }, []);
+
+  
+
+    
+  editor.registerCommand(REPLACE_TEXT_WITH_API_CALL_COMMAND, (payload) => {  
+    const selection = $getSelection();
+
+    if ($isRangeSelection(selection) && selection.isCollapsed()) {
+        console.log('selection is collapsed');
+
+        const anchorNode = selection.anchor.getNode();
+        
+        // Find the matching parent node using your editor's custom function
+        const parent = $findMatchingParent(anchorNode, (node) => $isParagraphNode(node));
+
+        if (parent) {
+            // Create a node selection
+            const nodeSelection = $createNodeSelection();
+
+            // Add the parent node to the node selection
+            nodeSelection.add(parent.__key);
+
+            // Get all children of the parent node recursively
+            const children = getChildrenRecursively(parent);
+            for (const child of children) {
+                nodeSelection.add(child.__key);
+            }
+
+            const nodeHtml = $generateHtmlFromNodes(editor, nodeSelection);
+            console.log('Node content as HTML:', nodeHtml);
+        }
+
+    } else {
+        const selectedHtml = $generateHtmlFromNodes(editor, selection);
+        console.log('Selected content as HTML:', selectedHtml);
+    }
+    
+    return true;  
+}, 0); 
+
 
   return (
     <EditorContext.Provider
       value={{ initialEditor: editor, activeEditor, setActiveEditor }}
     >
       {children}
-      <div className={`editor-container`}>
+      <div className={`editor-container`} ref={onRef}>  
         <AutoFocusPlugin />
         <ClearEditorPlugin />
         {hashtagsEnabled && <HashtagPlugin />}
@@ -119,6 +220,11 @@ const Editor = ({
           <ClickableLinkPlugin />
           <CharacterStylesPopupPlugin />
           <TabFocusPlugin />
+          {floatingAnchorElem && !isSmallWidthViewport && (
+              <>
+                <DraggableBlockPlugin anchorElem={floatingAnchorElem} />
+              </>
+            )}
         </>
 
         <HistoryPlugin externalHistoryState={historyState} />

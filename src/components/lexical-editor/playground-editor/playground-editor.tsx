@@ -3,6 +3,7 @@ import {
   AlignDropdown,
   BackgroundColorPicker,
   BoldButton,
+  CDIButton,
   CodeFormatButton,
   Divider,
   Editor,
@@ -39,6 +40,7 @@ export const PlaygroundEditor = (): React.ReactElement => {
             <FontSizeDropdown />
             <Divider />
             <BoldButton />
+            <CDIButton />
             <ItalicButton />
             <UnderlineButton />
             <CodeFormatButton />

@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 
 import { Dropdown } from '../../../../components/dropdown';
 import { DropdownOption } from '../../../../types';
+import { processText } from '../../../../api/api';  
+import { convertCollapsibleContentElement } from 'src/components/lexical-editor/playground/plugins/CollapsiblePlugin/CollapsibleContentNode';
 
 export const SidePanel = (): React.ReactElement => {
 	const [selectedOption, setSelectedOption] = useState<string | undefined>(
@@ -18,6 +20,18 @@ export const SidePanel = (): React.ReactElement => {
 			value: 'option 2',
 		},
 	];
+	const handleRunClick = async () => {  
+		// const selectedText = getSelectedTextFromEditor();
+		const selectedText = "this is placeholder input";
+		if (selectedText) {  
+		  const result = await processText(selectedText);  
+		  if (result) {  
+			console.log(result);
+			// Do something with the result, e.g., update the editor's content  
+		  }  
+		}  
+	  };  
+	  
 	return (
 		<div className={clsx('w-full h-full flex flex-col')}>
 			<div className={'w-full pb-[16px]'}>
@@ -36,22 +50,14 @@ export const SidePanel = (): React.ReactElement => {
 					</p>
 					<div className={'flex flex-row pt-[20px]'}>
 						<div className={'pr-[12px]'}>
-							<button
-								className={clsx(
-									'font-medium px-4 py-2 border border-gray-900 bg-gray-900 text-white border-radius rounded'
-								)}
-							>
-								{'Run'}
-							</button>
-						</div>
-						<div>
-							<button
-								className={clsx(
-									'font-medium px-4 py-2 border border-gray-900 bg-transparent text-black border-radius rounded'
-								)}
-							>
-								{'Make Bold'}
-							</button>
+							<button  
+							className={clsx(  
+								'font-medium px-4 py-2 border border-gray-900 bg-gray-900 text-white border-radius rounded'  
+							)}  
+							onClick={handleRunClick}  
+							>  
+							{'Run'}  
+							</button>  
 						</div>
 					</div>
 				</div>
@@ -62,12 +68,12 @@ export const SidePanel = (): React.ReactElement => {
 					}
 				>
 					<div>
-						<p className={'text-sm text-gray-500'}>{'Chat biopsy'}</p>
+						<p className={'text-sm text-gray-500'}>{'Chart biopsy'}</p>
 					</div>
 					<div>
 						<input
 							className={'w-full p-[8px] rounded border-[1px] border-gray-300'}
-							placeholder={'Enter chat query'}
+							placeholder={'Enter search term'}
 						/>
 					</div>
 				</div>

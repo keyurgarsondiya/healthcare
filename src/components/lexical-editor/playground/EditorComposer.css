@@ -363,6 +363,10 @@ i.superscript {
   background-image: url(images/icons/type-superscript.svg);
 }
 
+i.stars {
+  background-image: url(images/icons/stars.svg);
+}
+
 i.link {
   background-image: url(images/icons/link.svg);
 }
