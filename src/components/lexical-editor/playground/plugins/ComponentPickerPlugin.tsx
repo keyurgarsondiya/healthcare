@@ -7,6 +7,7 @@
  */
 
 import {$createCodeNode} from '@lexical/code';
+import {$generateHtmlFromNodes, $generateNodesFromDOM} from '@lexical/html';
 import {
   INSERT_CHECK_LIST_COMMAND,
   INSERT_ORDERED_LIST_COMMAND,
@@ -29,10 +30,14 @@ import {
   $isRangeSelection,
   FORMAT_ELEMENT_COMMAND,
   TextNode,
+  $getRoot,
+  RangeSelection,
+  ElementNode,
 } from 'lexical';
 import {useCallback, useMemo, useState} from 'react';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import _ from 'lodash';
 
 import useModal from '../hooks/useModal';
 import catTypingGif from '../images/cat-typing.gif';
@@ -44,6 +49,7 @@ import {INSERT_IMAGE_COMMAND, InsertImageDialog} from './ImagesPlugin';
 import {INSERT_PAGE_BREAK} from './PageBreakPlugin';
 import {InsertPollDialog} from './PollPlugin';
 import {InsertNewTableDialog, InsertTableDialog} from './TablePlugin';
+import { api } from 'src/utils/api';
 
 class ComponentPickerOption extends MenuOption {
   // What shows up in the editor
@@ -109,7 +115,7 @@ function ComponentPickerMenuItem({
   );
 }
 
-export default function ComponentPickerMenuPlugin(): JSX.Element {
+export default function ComponentPickerMenuPlugin({ slashPrompts }): JSX.Element {
   const [editor] = useLexicalComposerContext();
   const [modal, showModal] = useModal();
   const [queryString, setQueryString] = useState<string | null>(null);
@@ -164,6 +170,11 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
 
     return options;
   }, [editor, queryString]);
+
+  const sendPromptToApi = async (promptName: string, selectedText) => {
+    const result = await api.post('/api/send-prompt', { promptName, text: selectedText });
+    return _.get(result, 'data.output');
+  }
 
   const options = useMemo(() => {
     const baseOptions = [
@@ -336,6 +347,37 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
           }),
       ),
     ];
+
+    if (_.size(slashPrompts)) {
+      _.forEach(slashPrompts, promptItem => {
+        baseOptions.push(
+            new ComponentPickerOption(_.get(promptItem, 'filename'), {
+            icon: _.get(promptItem, 'icon_path'),
+            keywords: [_.get(promptItem, 'filename')],
+            onSelect: async () => {
+              const selection = $getSelection() as RangeSelection;
+              const selectedHtml = $generateHtmlFromNodes(editor, selection);
+              const updatedHtml = await sendPromptToApi(_.get(promptItem, 'filename'), selectedHtml);
+              editor.update(() => {
+                if ($isRangeSelection(selection)) {
+                  try {
+                    const parser = new DOMParser();
+                    const dom = parser.parseFromString(updatedHtml, 'text/html');
+                    const nodes = $generateNodesFromDOM(editor, dom);
+                    const root = $getRoot();
+                    root.clear();
+                    const rangeSelection = $getSelection() as RangeSelection;
+                    rangeSelection.insertNodes(nodes);
+                  } catch(error) {
+                    console.log(error)
+                  }
+                }
+              })
+            }
+          })
+        )
+      })
+    }
 
     const dynamicOptions = getDynamicOptions();
 

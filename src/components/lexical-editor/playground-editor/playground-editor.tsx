@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   AlignDropdown,
   BackgroundColorPicker,
@@ -19,6 +19,8 @@ import {
 import ToolbarPlugin from '../playground/plugins/ToolbarPlugin/ToolbarPlugin';
 import ComponentPickerPlugin from '../playground/plugins/ComponentPickerPlugin';
 import { $createParagraphNode, $createTextNode, $getRoot } from 'lexical';
+import { get } from 'lodash';
+import { api } from 'src/utils/api';
 
 const initialState = () => {
   const paragraph = $createParagraphNode();
@@ -30,6 +32,11 @@ const initialState = () => {
 };
 
 export const PlaygroundEditor = (): React.ReactElement => {
+  const [slashPrompts, setSlashPrompts] = useState([]);
+  useEffect(() => {
+    api.get('/get-slash-prompts').then(data => setSlashPrompts(get(data, 'data.file_data', [])));
+  }, []);
+
   return (
     <div className={'app-container'}>
       <EditorComposer initialEditorState={initialState}>
@@ -51,7 +58,7 @@ export const PlaygroundEditor = (): React.ReactElement => {
             <Divider />
             <AlignDropdown />
           </ToolbarPlugin>
-          <ComponentPickerPlugin />
+          <ComponentPickerPlugin slashPrompts={slashPrompts} />
         </Editor>
       </EditorComposer>
     </div>
