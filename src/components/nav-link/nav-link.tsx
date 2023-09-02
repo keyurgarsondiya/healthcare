@@ -7,7 +7,7 @@ const ACTIVE_TAB_CLASSNAME = clsx(
 	'text-center block rounded py-2 px-4 text-gray-900 font-medium bg-gray-300 hover:bg-gray-300/75'
 );
 const INACTIVE_TAB_CLASSNAME = clsx(
-	'text-center block rounded py-2 px-4 text-gray-900 font-medium hover:border-gray-300 hover:bg-gray-300'
+	'text-center block rounded py-2 px-4 text-gray-300 font-medium hover:border-gray-300 hover:bg-gray-300'
 );
 
 export const NavLink = ({

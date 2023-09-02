@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import React, { useState } from 'react';
 
-import { Dropdown } from '../../../../components';
+import { Dropdown } from '../../../../components/dropdown';
 import { DropdownOption } from '../../../../types';
 
 export const SidePanel = (): React.ReactElement => {
