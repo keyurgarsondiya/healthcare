@@ -5,6 +5,7 @@ import { SidePanel } from './fragments';
 
 import { PlaygroundEditor } from 'src/components/lexical-editor';
 import { EditorHistoryProvider } from '../../store';
+import Settings from 'src/components/lexical-editor/playground/Settings';
 
 const Home = (): React.ReactElement => {
 	return (
@@ -45,6 +46,7 @@ const Home = (): React.ReactElement => {
 						<div className={clsx('h-4/6', 'relative')}>
 							<PlaygroundEditor />
 						</div>
+						<Settings />
 					</div>
 					<div className={clsx('w-2/6 h-full pl-[20px]')}>
 						<SidePanel />

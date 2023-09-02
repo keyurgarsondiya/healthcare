@@ -3,6 +3,7 @@ import Editor from './Editor';
 import ToolbarPlugin from './plugins/ToolbarPlugin/ToolbarPlugin';
 import MentionsPlugin from './plugins/MentionsPlugin';
 import ComponentPickerMenuPlugin from './plugins/ComponentPickerPlugin';
+import TableOfContentsPlugin from './plugins/TableOfContentsPlugin';
 
 import {
   AlignDropdown,
@@ -48,4 +49,5 @@ export {
   Divider,
   MentionsPlugin,
   ComponentPickerMenuPlugin,
+  TableOfContentsPlugin,
 };

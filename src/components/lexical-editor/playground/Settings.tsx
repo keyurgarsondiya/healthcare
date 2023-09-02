@@ -18,15 +18,7 @@ export default function Settings(): JSX.Element {
   const {
     setOption,
     settings: {
-      measureTypingPerf,
-      isCollab,
-      isRichText,
-      isCharLimit,
-      isCharLimitUtf8,
-      isAutocomplete,
-      // showTreeView,
-      showNestedEditorTreeView,
-      disableBeforeInput,
+      showTableOfContents,
     },
   } = useSettings();
   const [showSettings, setShowSettings] = useState(false);
@@ -47,76 +39,12 @@ export default function Settings(): JSX.Element {
       />
       {showSettings ? (
         <div className="switches">
-          {isRichText && isDevPlayground && (
-            <Switch
-              onClick={() => {
-                setOption('isCollab', !isCollab);
-                window.location.reload();
-              }}
-              checked={isCollab}
-              text="Collaboration"
-            />
-          )}
-          {isDevPlayground && (
-            <Switch
-              onClick={() => {
-                if (isSplitScreen) {
-                  window.parent.location.href = `/${search}`;
-                } else {
-                  window.location.href = `/split/${search}`;
-                }
-              }}
-              checked={isSplitScreen}
-              text="Split Screen"
-            />
-          )}
-          <Switch
-            onClick={() => setOption('measureTypingPerf', !measureTypingPerf)}
-            checked={measureTypingPerf}
-            text="Measure Perf"
-          />
-          {/* <Switch
-            onClick={() => setOption('showTreeView', !showTreeView)}
-            checked={showTreeView}
-            text="Debug View"
-          /> */}
-          <Switch
-            onClick={() =>
-              setOption('showNestedEditorTreeView', !showNestedEditorTreeView)
-            }
-            checked={showNestedEditorTreeView}
-            text="Nested Editors Debug View"
-          />
           <Switch
             onClick={() => {
-              setOption('isRichText', !isRichText);
-              setOption('isCollab', false);
+              setOption('showTableOfContents', !showTableOfContents);
             }}
-            checked={isRichText}
-            text="Rich Text"
-          />
-          <Switch
-            onClick={() => setOption('isCharLimit', !isCharLimit)}
-            checked={isCharLimit}
-            text="Char Limit"
-          />
-          <Switch
-            onClick={() => setOption('isCharLimitUtf8', !isCharLimitUtf8)}
-            checked={isCharLimitUtf8}
-            text="Char Limit (UTF-8)"
-          />
-          <Switch
-            onClick={() => setOption('isAutocomplete', !isAutocomplete)}
-            checked={isAutocomplete}
-            text="Autocomplete"
-          />
-          <Switch
-            onClick={() => {
-              setOption('disableBeforeInput', !disableBeforeInput);
-              setTimeout(() => window.location.reload(), 500);
-            }}
-            checked={disableBeforeInput}
-            text="Legacy Events"
+            checked={showTableOfContents}
+            text="Table Of Contents"
           />
         </div>
       ) : null}

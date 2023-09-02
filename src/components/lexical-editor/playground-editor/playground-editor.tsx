@@ -18,6 +18,8 @@ import {
 } from '../playground';
 import ToolbarPlugin from '../playground/plugins/ToolbarPlugin/ToolbarPlugin';
 import ComponentPickerPlugin from '../playground/plugins/ComponentPickerPlugin';
+import TableOfContentsPlugin from '../playground/plugins/TableOfContentsPlugin';
+import { useSettings } from '../playground/context/SettingsContext';
 import { $createParagraphNode, $createTextNode, $getRoot } from 'lexical';
 import { get } from 'lodash';
 import { api } from 'src/utils/api';
@@ -33,6 +35,11 @@ const initialState = () => {
 
 export const PlaygroundEditor = (): React.ReactElement => {
   const [slashPrompts, setSlashPrompts] = useState([]);
+  const {
+    settings: {
+      showTableOfContents,
+    },
+  } = useSettings();
   useEffect(() => {
     api.get('/get-slash-prompts').then(data => setSlashPrompts(get(data, 'data.file_data', [])));
   }, []);
@@ -59,6 +66,7 @@ export const PlaygroundEditor = (): React.ReactElement => {
             <AlignDropdown />
           </ToolbarPlugin>
           <ComponentPickerPlugin slashPrompts={slashPrompts} />
+          <div>{showTableOfContents && <TableOfContentsPlugin />}</div>
         </Editor>
       </EditorComposer>
     </div>

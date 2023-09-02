@@ -6,18 +6,19 @@
  *
  */
 
-import type { SettingName } from '../appSettings';
+import type {SettingName} from '../appSettings';
 
 import * as React from 'react';
 import {
   createContext,
+  ReactNode,
   useCallback,
   useContext,
   useMemo,
   useState,
 } from 'react';
 
-import { DEFAULT_SETTINGS } from '../appSettings';
+import {DEFAULT_SETTINGS} from '../appSettings';
 
 type SettingsContextShape = {
   setOption: (name: SettingName, value: boolean) => void;
@@ -34,7 +35,7 @@ const Context: React.Context<SettingsContextShape> = createContext({
 export const SettingsContext = ({
   children,
 }: {
-  children: JSX.Element | string | (JSX.Element | string)[];
+  children: ReactNode;
 }): JSX.Element => {
   const [settings, setSettings] = useState(DEFAULT_SETTINGS);
   const setOption = useCallback((setting: SettingName, value: boolean) => {
@@ -48,9 +49,11 @@ export const SettingsContext = ({
       setURLParam(setting, value);
     }
   }, []);
+
   const contextValue = useMemo(() => {
-    return { setOption, settings };
+    return {setOption, settings};
   }, [setOption, settings]);
+
   return <Context.Provider value={contextValue}>{children}</Context.Provider>;
 };
 

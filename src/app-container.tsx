@@ -4,6 +4,7 @@ import { HashRouter } from 'react-router-dom';
 
 import { Main } from './components';
 import { ThemeProvider } from './theme';
+import { SettingsContext } from './components/lexical-editor/playground/context/SettingsContext';
 
 import './app.css';
 function AppContainer(): React.ReactElement {
@@ -16,11 +17,13 @@ function AppContainer(): React.ReactElement {
 				redirect_uri: window.location.origin,
 			}}
 		>
-			<ThemeProvider>
-				<HashRouter>
-					<Main />
-				</HashRouter>
-			</ThemeProvider>
+			<SettingsContext>
+				<ThemeProvider>
+					<HashRouter>
+						<Main />
+					</HashRouter>
+				</ThemeProvider>
+			</SettingsContext>
 		</Auth0Provider>
 	);
 }
